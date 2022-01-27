@@ -1,0 +1,137 @@
+﻿@model RecordOfLoanViewModel
+
+@{
+    ViewData["Title"] = "Take Book Out";
+}
+<h4>Take Book Out</h4>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Book ID</label>
+                <input asp-for="Record.BookID" type="search" placeholder="Select ID of book" class="form-control" />
+                <span asp-validation-for="Record.Book.ID" class="text-danger"></span>
+                <span class="text-danger">@ViewBag.InvalidBookError</span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Library User ID</label>
+                <input asp-for="Record.LibraryUserID" placeholder="Select ID of User" class="form-control" />
+                <span asp-validation-for="Record.LibraryUser.ID" class="text-danger"></span>
+                <span class="text-danger">@ViewBag.InvalidUserError</span>
+                <span class="text-danger">@ViewBag.InvalidUserError2</span>
+            </div>
+            <div class="form-group d-flex">
+                <label class="control-label">Date Borrowed</label>
+                <input asp-for="Record.DateBorrowed" type="date" placeholder="DD/MM/YYYY" class="form-control" />
+                <span asp-validation-for="Record.DateBorrowed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Take out book!" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<h2>Search for a book</h2>
+<br />
+<form method="get" class="form-group">
+    <input class="p-2" type="search" placeholder="Search name of Book" asp-for="SearchString1" />
+    <input type="submit" value="Search" class="btn btn-primary btn-sm" />
+</form>
+<div class="d-flex bg-success text-white">
+    <div class="p-2" style="flex:1 0 10%">
+        Book ID
+    </div>
+    <div class="p-2" style="flex:1 0 40%">
+        Title
+    </div>
+    <div class="p-2" style="flex:1 0 30%">
+        Author
+    </div>
+    <div class="p-2" style="flex:1 0 20%">
+        Available to Borrow
+    </div>
+</div>
+
+@if (Model.BookList.Any())
+{
+    @foreach (var item in Model.BookList)
+    {
+        <div class="d-flex border-left border-right border-bottom border-primary">
+            <div class="p-2" style="flex:1 0 10%">
+                @item.ID
+            </div>
+            <div class="p-2" style="flex:1 0 30%">
+                @item.Title
+            </div>
+            <div class="p-2" style="flex:1 0 20%">
+                @item.Author.Name
+            </div>
+            <div class="p-2" style="flex:1 0 20%">
+                @(item.IsAvailable?"Yes" : "No")
+            </div>
+        </div>
+    }
+
+}
+
+
+
+<br />
+
+<form class="form-group">
+    <label class="control-label">
+        List of Users:
+    </label>
+    <input class="p-2" type="text" placeholder="Search User Name" asp-for="SearchString2" />
+    <input type="submit" value="Search" class="btn btn-primary btn-sm" />
+</form>
+<div class="d-flex bg-success text-white">
+    <div class="p-2" style="flex:1 0 10%">
+        User ID
+    </div>
+    <div class="p-2" style="flex:1 0 30%">
+        Name
+    </div>
+    <div class="p-2" style="flex:1 0 20%">
+        Books Currently Out
+    </div>
+    <div class="p-2" style="flex:1 0 10%">
+        Gold Member
+    </div>
+    <div class="p-2" style="flex:1 0 20%">
+    </div>
+</div>
+
+@if (Model.UserList.Any())
+{
+    @foreach (var item in Model.UserList)
+    {
+        <div class="d-flex border-left border-right border-bottom border-primary">
+            <div class="p-2" style="flex:1 0 10%">
+                @item.ID
+            </div>
+            <div class="p-2" style="flex:1 0 30%">
+                @item.Name
+            </div>
+            <div class="p-2" style="flex:1 0 20%">
+                @item.NumBooksOut
+            </div>
+            <div class="p-2" style="flex:1 0 10%">
+                @(item.IsGoldMember?"Yes":"No")
+            </div>
+        </div>
+    }
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+}
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

@@ -1,0 +1,115 @@
+﻿@model CastleLibrary.Models.RecordOfLoanViewModel
+
+@{
+
+}
+<h4>Return Book</h4>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label class="control-label">Book ID</label>
+                <input asp-for="Record.BookID" type="text" class="form-control" placeholder="ID of book to return" />
+                <span class="text-danger">@ViewBag.InvalidBookError</span>
+                <span class="text-danger">@ViewBag.BookNotLoanedError</span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Return Date</label>
+                <input asp-for="Record.DateReturned" type="date" placeholder="DD/MM/YYYY" class="form-control" />
+                <span class="text-danger">@ViewBag.DateReturnedError</span>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary btn-sm" />
+            </div>
+
+        </form>
+    </div>
+</div>
+<br />
+
+<h6>Search a user's existing loans</h6>
+<form method="get" class="form-group">
+    <label class="control-label">User ID</label>
+    <input class="p-2" asp-for="SearchString1" placeholder="Enter User ID">
+    <input class="btn btn-primary btn-sm" type="submit" value="Find User" />
+    <span class="text-danger">@ViewBag.InvalidNumberError</span>
+    <span class="text-danger">@ViewBag.InvalidUserError</span>
+</form>
+
+
+<span class="text-danger">@ViewBag.NoRecords</span>
+
+
+@if (Model.LibUser != null)
+{
+    <h5>@Model.LibUser.Name's Outstanding Book Loans </h5>
+}
+else
+{
+    <h5>Outstanding Book Loans</h5>
+}
+
+<div class="d-flex bg-success text-white">
+    <div class="p-2" style="flex: 1 0 5%">
+        Book ID
+    </div>
+    <div class="p-2" style="flex: 1 0 15%">
+        Borrowed By
+    </div>
+    <div class="p-2" style="flex:1 0 20%">
+        Date Borrowed
+    </div>
+    <div class="p-2" style="flex:1 0 20%">
+        Title
+    </div>
+    <div class="p-2" style="flex:1 0 10%">
+        Return By
+    </div>
+    <div class="p-2" style="flex:1 0 10%">
+        Overdue
+    </div>
+    <div class="p-2" style=" flex:1 0 10% ">
+        Fine
+    </div>
+    <div class="p-2" style=" flex:1 0 10% ">
+    </div>
+</div>
+
+@if (Model.RecordList.Any())
+{
+    @foreach (var item in Model.RecordList)
+    {
+        <div class="d-flex border-left border-right border-bottom border-primary">
+            <div class="p-2" style="flex:1 0 5%">
+                @item.BookID
+            </div>
+            <div class="p-2" style="flex:1 0 15%">
+                @item.LibraryUser.Name
+            </div>
+            <div class="p-2" style="flex:1 0 20%">
+                @Html.DisplayFor(x => item.DateBorrowed)
+            </div>
+            <div class="p-2" style="flex:1 0 30%">
+                @item.Book.Title
+            </div>
+            <div class="p-2" style="flex:1 0 10%">
+                @Html.DisplayFor(x => item.DateDue)
+            </div>
+            <div class="p-2" style="flex:1 0 10%">
+                @(item.IsOverdue? "Yes":"No")
+            </div>
+            <div class="p-2" style="flex:1 0 10%">
+                @item.Fine ZAR
+            </div>
+            @*<form method="post" class="p-2 btn-group" style="flex:1 0 15%" role="group">
+                    <input type="submit" class="btn btn-primary btn-sm" value="Return Book" />
+                    <input type="hidden" name="RecordID" value="@item.ID" />
+                </form>*@
+        </div>
+
+    }
+
+}
+
+
+

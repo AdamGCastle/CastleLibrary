@@ -1,0 +1,75 @@
+﻿@model CastleLibrary.Models.RecordOfLoan
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>RecordOfLoan</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+
+            <div class="form-group">
+                <label asp-for="BookID" class="control-label">@Html.DisplayNameFor(model => model.BookID)</label>
+                <select asp-for="BookID" class="form-control" asp-items="ViewBag.SelectBook"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="LibraryUserID" class="control-label">@Html.DisplayNameFor(model => model.LibraryUserID)</label>
+                <select asp-for="LibraryUserID" class="form-control" asp-items="ViewBag.SelectUser"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateBorrowed" class="control-label"></label>
+                <input type="text" placeholder="DD/MM/YYYY" asp-for="DateBorrowed" class="form-control" />
+                <span asp-validation-for="DateBorrowed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateDue" class="control-label">Date Due</label>
+                <input asp-for="DateDue" type="text"class="form-control" />
+                <span asp-validation-for="DateDue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateReturned" class="control-label">Date of Return</label>
+                <input type="text" asp-for="DateReturned" class="form-control" />
+                <span asp-validation-for="DateReturned" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsReturned" /> @Html.DisplayNameFor(model => model.IsReturned)
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Fine" class="control-label"></label>
+                <input asp-for="Fine" class="form-control" />
+                <span asp-validation-for="Fine" class="text-danger"></span>
+            </div>
+
+            <div>
+                <span>Book to borrow is called: @Html.DisplayFor(model => model.Book.Title)</span>
+                <span>Book's Author is @Html.DisplayFor(model => model.Book.Author.Name)</span>
+
+            </div>
+
+            <div class="form-group">
+                <a asp-action="Delete" value="Delete" class="btn btn-danger" asp-route-id="@Model.ID">Delete</a>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

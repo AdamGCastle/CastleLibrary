@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CastleLibrary.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Books</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form method="get" class="form-group">
+    <label class="control-label">
+        Name:
+    </label>
+    <input class="p-2" type="text" name="searchString" />
+    <input type="submit" class="btn btn-primary btn-sm" value="Search"/> 
+   
+</form>
+
+<div class="d-flex bg-success text-white">
+    <div class="p-2" style="flex:1 0 40%">
+        Title
+    </div>
+    <div class="p-2" style="flex:1 0 20%">
+        Author
+    </div>
+    <div class="p-2" style="flex:1 0 30%">
+        Available to Borrow
+    </div>    
+</div>
+
+
+
+@foreach (var item in Model)
+{
+    <div class="d-flex border-left border-right border-bottom border-primary">
+        <div class="p-2" style="flex:1 0 40%">
+            @item.Title
+        </div>
+
+        <div class="p-2" style="flex:1 0 20%">
+            @item.Author.Name
+        </div>
+
+        <div class="p-2" style="flex:1 0 10%">
+            @(item.IsAvailable?"Yes":"No")
+        </div>
+
+        <div class="p-2 btn-group" style="flex:0 0 20%" role="group">
+            <a class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@item.ID">
+                View Book
+            </a>
+            <a class="btn btn-success btn-sm" asp-controller="Authors" asp-action="Details" asp-route-id="@item.Author.ID">
+                View Author
+            </a>
+        </div>
+    </div>
+}

@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1 class="display-4 text-center">Welcome to the Library.</h1>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-6">
+
+            @*<h6 class="text-center">You are a librarian. </h6>*@
+            <div class="card" style="color: black; background-color: white">
+                <h4 class="text-center">Rules</h4>
+                <ul>
+                    <li>You can use this app to log when a user has taken out a book and when they return it.</li>
+
+                    <li>A user may take out 5 books at a time, each for a period of 14 days, after which they are charged a fine of 2 ZAR each day.</li>
+
+                    <li>The maximum possible fine for each book loan is is 400 ZAR.</li>
+
+                    <li>If a user has accrued more than 200 ZAR in fines, they won't be able to take out a book.</li>
+                    <li>Fines are paid by the user of the app (the librarian) manually entering in the amount they have paid on the Library User's edit page.</li>
+
+                    <li>A "Gold member" may take a book out for longer, and run up more fines, before they are blocked.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+    <br />
+    <div class="row gutters-sm">
+        <div class="col">
+            <div class="card" style="background-color: darkgrey;">
+                <div class="card-body">
+                    <a asp-controller="RecordOfLoans" asp-action="Index" style="color:white"><h4>Loan Records</h4></a>
+                    <ul>
+                        <li><a asp-controller="RecordsOfLoans" asp-action="Index" style="color:white">See All Records</a></li>
+                        <li><a asp-controller="RecordsOfLoans" asp-action="Create" style="color:white">Take out a Book</a></li>
+                        <li><a asp-controller="RecordOfLoans" asp-action="ReturnBook" style="color:white">Return a Book</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card" style="background-color: darkgrey;">
+                <div class="card-body">
+                    <a asp-controller="LibraryUsers" asp-action="Index" style="color:white"><h4>Library Users</h4></a>
+                    <ul>
+                        <li><a asp-controller="LibraryUsers" asp-action="Index" style="color:white">See All Users</a></li>
+                        <li><a asp-controller="LibraryUsers" asp-action="Create" style="color:white">Create New User</a></li>
+                    </ul>
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="col">
+            <div class="card" style="background-color: darkgrey;">
+                <div class="card-body">
+                    <a asp-controller="Books" asp-action="Index" style="color:white"><h4>Books</h4></a>
+                    <ul>
+                        <li><a asp-controller="Books" asp-action="Index" style="color:white">See All Books</a></li>
+                        <li><a asp-controller="Books" asp-action="Create" style="color:white">Add book</a></li>
+                        <li><a asp-controller="Authors" asp-action="Index" style="color:white">See all authors</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

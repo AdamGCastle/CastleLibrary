@@ -1,0 +1,144 @@
+﻿@model CastleLibrary.Models.RecordOfLoanViewModel
+
+@{
+    ViewData["Title"] = "Library User Details";
+}
+
+<h1>@Html.DisplayFor(model => model.LibUser.Name)</h1>
+<span><a asp-action="Edit" asp-route-id="@Model.LibUser.ID">Edit</a> |</span>
+
+<div>   
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LibUser.ID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LibUser.ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LibUser.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LibUser.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LibUser.NumBooksOut)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LibUser.NumBooksOut)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LibUser.IsGoldMember)
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.LibUser.IsGoldMember ?"Yes":"No")
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LibUser.EmailAddress)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LibUser.EmailAddress)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LibUser.MaxBooksAllowed)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LibUser.MaxBooksAllowed)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LibUser.FinesTotal)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LibUser.FinesTotal)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LibUser.FinesPaid)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LibUser.FinesPaid)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LibUser.FinesOutstanding)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LibUser.FinesOutstanding)
+        </dd>
+    </dl>
+</div>
+
+<div class="col-md-4">
+    <form method="post" asp-action="Details" class="form-group" style="flex: 1 0 auto">
+        <label class="control-label">Fine Payment(ZAR)</label>
+        <input type="text" name="finePayment" class="form-control" />
+        <input type="hidden" name="id" value="@Model.LibUser.ID" />
+        <span class="text-danger">@ViewBag.PaymentFail</span>
+        <span class="text-success">@ViewBag.PaymentSuccess</span>
+        <div class="form-group">
+            <input type="submit" value="Pay Fine" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+    <h5>@Html.DisplayFor(model => model.LibUser.Name)'s Book History </h5>
+    <div class="d-flex bg-success text-white">
+        <div class="p-2" style="flex: 1 0 5%">
+            ID
+        </div>
+        <div class="p-2" style="flex:1 0 20%">
+            Date Borrowed
+        </div>
+        <div class="p-2" style="flex:1 0 30%">
+            Title
+        </div>
+        <div class="p-2" style="flex:1 0 10%">
+            Return By
+        </div>
+        <div class="p-2" style="flex:1 0 10%">
+            Date Returned
+        </div>
+        <div class="p-2" style="flex:1 0 10%">
+            Overdue
+        </div>
+        <div class="p-2" style=" flex:1 0 10% ">
+            Fine
+        </div>
+    </div>
+    @foreach (var item in Model.RecordList)
+    {
+        <div class="d-flex border-left border-right border-bottom border-primary">
+            <div class="p-2" style="flex:1 0 5%">
+                @item.ID
+            </div>
+            <div class="p-2" style="flex:1 0 20%">
+                @Html.DisplayFor(x => item.DateBorrowed)
+            </div>
+            <div class="p-2" style="flex:1 0 30%">
+                @item.Book.Title
+            </div>
+            <div class="p-2" style="flex:1 0 10%">
+                @Html.DisplayFor(x => item.DateDue)
+            </div>
+            <div class="p-2" style="flex:1 0 10%">
+                @if (item.IsReturned)
+                {
+                    <span>@item.DateReturned</span>;
+                }
+                else
+                {
+                    <span>Not yet returned</span>
+                }
+
+            </div>
+            <div class="p-2" style="flex:1 0 10%">
+                @(item.IsOverdue? "Yes":"No")
+            </div>
+            <div class="p-2" style="flex:1 0 10%">
+                @item.Fine ZAR
+            </div>
+        </div>
+
+    }
+    <div>        
+        <a asp-action="Index">Back to List</a>
+    </div>

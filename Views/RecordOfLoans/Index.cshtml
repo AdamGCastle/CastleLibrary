@@ -1,0 +1,112 @@
+﻿@model IEnumerable<CastleLibrary.Models.RecordOfLoan>
+
+@{
+    ViewData["Title"] = "Loan Records";
+}
+
+<div class="jumbotron p-3">
+    <div class="d-flex align-items-center">
+        <h1 class="display-4 flex-grow-1">
+            Records
+        </h1>
+    </div>
+</div>
+
+<div class="p-2 btn-group" style="flex:0 0 20%" role="group">
+    <a class="btn btn-light btn-sm" asp-action="Create">Take Out a Book</a>
+</div>
+
+<div class="p-2 btn-group" style="flex:0 0 20%" role="group">
+    <a class="btn btn-light btn-sm" asp-action="ReturnBook">Return a Book</a>
+</div>
+<div class="p-2 btn-group" style="flex:0 0 5%" role="group"></div>
+  
+<div>
+    <form class="form-group col-md-4">
+        <label class="control-label">Filter: </label>
+        <select name="filter" class="form-control" asp-items="new SelectList(ViewBag.FilterList, ViewBag.Filter)"></select>
+        <label class="control-label">Sort By: </label>
+        <select name="sortField" class="form-control" asp-items="new SelectList(ViewBag.SortFieldList, ViewBag.SortField)"></select>
+        <input type="submit" class="btn btn-primary btn-sm" />
+    </form>
+    <br />
+   
+</div>
+   
+
+<div class="d-flex bg-success text-white">
+    <div class="p-2" style="flex:1 0 20%">
+        <span>Book</span>
+        @if (ViewBag.SortField == "Book")
+        {<span style="font-size:0.75em">&#9660</span>}
+    </div>
+    <div class="p-2" style="flex:1 0 20%">
+        <span>User</span>
+        @if (ViewBag.SortField == "User")
+        {<span style="font-size:0.75em">&#9660</span>}
+    </div>
+    <div class="p-2" style="flex:1 0 10%">
+        <span>Borrowed</span>
+        @if (ViewBag.SortField == "Borrowed on")
+        {<span style="font-size:0.75em">&#9660</span>}
+    </div>
+    <div class="p-2" style="flex:1 0 10%">
+        <span>Due</span>
+        @if (ViewBag.SortField == "Due on")
+        {<span style="font-size:0.75em">&#9660</span>}
+    </div>
+    <div class="p-2" style="flex:1 0 10%">
+        <span>Returned</span>
+        @if (ViewBag.SortField == "Returned on")
+        {<span style="font-size:0.75em">&#9660</span>}
+    </div>
+    <div class="p-2" style="flex:1 0 10%">
+        <span>Fine (ZAR)</span>
+    </div>
+        <div class="p-2" style="flex:1 0 20%"></div>
+</div>
+    
+@foreach (var item in Model)
+{
+    <div class="d-flex border-left border-right border-bottom border-primary">
+        <div class="p-2" style="flex:1 0 20%">
+            <a asp-controller="Books" asp-action="details" asp-route-id="@item.BookID">@item.Book.Title</a>
+        </div>
+        <div class="p-2" style="flex:1 0 20%">
+            <a asp-controller="LibraryUsers" asp-action="details" asp-route-id="@item.LibraryUserID">@item.LibraryUser.Name</a>
+        </div>
+        <div class="p-2" style="flex:1 0 10%">
+            @Html.DisplayFor(x => item.DateBorrowed)
+        </div>
+        <div class="p-2" style="flex:1 0 10%">
+            @Html.DisplayFor(x => item.DateDue)
+        </div>
+        <div class="p-2" style="flex:1 0 10%">
+            @Html.DisplayFor(x => item.DateReturned)
+        </div>
+        <div class="p-2" style="flex:1 0 10%">
+            @Html.DisplayFor(x => item.Fine)
+        </div>
+
+
+        <div class="p-2 btn-group justify-content-center" style="flex:1 0 20%" role="group">
+            <div style="flex:1 0 50%">
+            @if (!item.IsReturned)
+            {
+                <form method="post">
+                    <input type="submit" class="btn btn-danger btn-sm mr-1" value="Quick Return" />
+                    <input type="hidden" name="RecordId" value="@item.ID" />
+                </form>
+            }
+            else
+            {
+                <div>Returned</div>
+            }    
+            </div>
+            <div style="flex:1 0 50%">                                    
+                <a class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@item.ID">Details</a>  
+            </div>
+        </div>
+
+    </div>
+    }

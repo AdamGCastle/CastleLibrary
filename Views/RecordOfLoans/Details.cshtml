@@ -1,0 +1,83 @@
+﻿@model CastleLibrary.Models.RecordOfLoan
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Record Details</h1>
+<h4>ID @Model.ID </h4>
+
+<div>
+    
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Record ID
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+        <dt class="col-sm-2">
+            Book ID
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Book.ID)
+        </dd>
+        <dt class="col-sm-2">
+            Book Title
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Book.Title)
+        </dd>
+        <dt class="col-sm-2">
+            Borrowed By
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LibraryUserID) - @Html.DisplayFor(model => model.LibraryUser.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateBorrowed)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateBorrowed)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateDue)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateDue)
+        </dd>
+        <dt class="col-sm-2">
+            Date Returned
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateReturned)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsOverdue)
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.IsOverdue ? "Yes" : "No")
+        </dd>
+        @if (Model.IsOverdue)
+        {
+            <dt class="col-sm-2">
+                Days Overdue
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DaysOverdue)
+            </dd>
+        }
+
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Fine)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Fine)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

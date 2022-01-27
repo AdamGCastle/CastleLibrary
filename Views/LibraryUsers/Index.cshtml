@@ -1,0 +1,64 @@
+﻿@model IEnumerable<CastleLibrary.Models.LibraryUser>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Library Users</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="d-flex bg-success text-white">
+    <div class="p-2" style="flex:1 0 15%">
+        Name
+    </div>
+    <div class="p-2" style="flex:1 0 10%">
+        Outstanding Books
+    </div>
+    <div class="p-2" style="flex:1 0 15%">
+        Gold Member
+    </div>
+    <div class="p-2" style="flex:1 0 25%">
+        Email Address
+    </div>
+    <div class="p-2" style="flex:1 0 35%">
+        Outstanding Fines
+    </div>
+
+</div>
+
+@foreach (var item in Model)
+{
+<div class="d-flex border-left border-right border-bottom border-primary">
+    <div class="p-2" style="flex:1 0 15%">
+        @item.Name
+    </div>
+
+    <div class="p-2" style="flex:1 0 10%">
+        @item.NumBooksOut
+    </div>
+
+    <div class="p-2" style="flex:1 0 15%">
+        @(item.IsGoldMember?"Yes":"No")
+    </div>
+    <div class="p-2" style="flex:1 0 30%">
+        @item.EmailAddress
+    </div>
+    <div class="p-2" style="flex:1 0 10%">
+        @item.FinesOutstanding
+    </div>    
+    <div class="p-2 btn-group" style="flex:1 0 20%" role="group">
+        <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@item.ID">
+            Edit
+        </a>
+        <a class="btn btn-success btn-sm" asp-action="Details" asp-route-id="@item.ID">
+            Details
+        </a>
+    </div>
+    </div>
+    }
+
+    @*<a class="btn-primary" asp-controller="LibraryUsers" asp-action="Reset">Reset All Records</a>
+        <span>@ViewData["ResetConfirmed"]</span>
+        <span>This button will delete everyone's records of fines and the number of Books they have out.</span>*@
