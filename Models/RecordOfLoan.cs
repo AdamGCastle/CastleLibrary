@@ -44,8 +44,8 @@ namespace CastleLibrary.Models
         }
         private double CalculateFine()
         {
-            int fine = DaysOverdue > 0 ? DaysOverdue * 2 : 0;
-            return fine < 400 ? fine : 400;               
+            double fine = DaysOverdue > 0 ? DaysOverdue * 0.2 : 0;
+            return fine < 40 ? fine : 40;               
         }
         private bool CalculateIfOverdue()
         {
