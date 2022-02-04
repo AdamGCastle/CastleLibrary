@@ -73,7 +73,7 @@
             @Html.DisplayNameFor(model => model.Fine)
         </dt>
         <dd class="col-sm-10">
-            £ @Html.DisplayFor(model => model.Fine)
+            £ @Model.Fine.ToString("0.00")
         </dd>
     </dl>
 </div>

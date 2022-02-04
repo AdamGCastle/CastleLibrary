@@ -85,7 +85,7 @@
             @Html.DisplayFor(x => item.DateReturned)
         </div>
         <div class="p-2" style="flex:1 0 10%">
-            £ @Html.DisplayFor(x => item.Fine) 
+            £ @item.Fine.ToString("0.00")
         </div>
 
 
