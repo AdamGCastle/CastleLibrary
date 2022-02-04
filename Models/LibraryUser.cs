@@ -39,7 +39,7 @@ namespace CastleLibrary.Models
         public double FinesPaid { get; set; }
 
         [Display(Name = "Outstanding Fines")]
-        public double FinesOutstanding { get { return FinesTotal - FinesPaid; } }
+        public double FinesOutstanding { get { return FinesTotal - FinesPaid < 0 ? 0 : FinesTotal - FinesPaid; } }
         public bool IsLoanBlocked { get { return FinesOutstanding >= FineLimit; } }
         public double FineLimit { get { return IsGoldMember ? 1000 : 200; } }
 

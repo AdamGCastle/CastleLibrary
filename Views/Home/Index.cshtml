@@ -2,7 +2,8 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h1 class="display-4 text-center">Welcome to the Library.</h1>
+<h2 class="display-4 text-center">Welcome to the Library</h2>
+<br />
 <div class="container">
     <div class="row">
         <div class="col">
@@ -10,7 +11,7 @@
         <div class="col-6">
 
             @*<h6 class="text-center">You are a librarian. </h6>*@
-            <div class="card" style="color: black; background-color: white">
+            <div class="card" style="color: black; background-color: white; padding-top: 1em">
                 <h4 class="text-center">Rules</h4>
                 <ul>
                     <li>You can use this app to log when a user has taken out a book and when they return it.</li>
@@ -19,7 +20,7 @@
 
                     <li>The maximum possible fine for each book loan is is £40.</li>
 
-                    <li>If a user has accrued more than 200 ZAR in fines, they won't be able to take out a book.</li>
+                    <li>If a user has accrued more than £20 in fines, they won't be able to take out a book.</li>
                     <li>Fines are paid by the user of the app (the librarian) manually entering in the amount they have paid on the Library User's edit page.</li>
 
                     <li>A "Gold member" may take a book out for longer, and run up more fines, before they are blocked.</li>
@@ -35,6 +36,7 @@
             <div class="card" style="background-color: darkgrey;">
                 <div class="card-body">
                     <a asp-controller="RecordOfLoans" asp-action="Index" style="color:white"><h4>Loan Records</h4></a>
+                    <br />
                     <ul>
                         <li><a asp-controller="RecordsOfLoans" asp-action="Index" style="color:white">See All Records</a></li>
                         <li><a asp-controller="RecordsOfLoans" asp-action="Create" style="color:white">Take out a Book</a></li>
@@ -47,6 +49,7 @@
             <div class="card" style="background-color: darkgrey;">
                 <div class="card-body">
                     <a asp-controller="LibraryUsers" asp-action="Index" style="color:white"><h4>Library Users</h4></a>
+                    <br />
                     <ul>
                         <li><a asp-controller="LibraryUsers" asp-action="Index" style="color:white">See All Users</a></li>
                         <li><a asp-controller="LibraryUsers" asp-action="Create" style="color:white">Create New User</a></li>
@@ -59,6 +62,7 @@
             <div class="card" style="background-color: darkgrey;">
                 <div class="card-body">
                     <a asp-controller="Books" asp-action="Index" style="color:white"><h4>Books</h4></a>
+                    <br />
                     <ul>
                         <li><a asp-controller="Books" asp-action="Index" style="color:white">See All Books</a></li>
                         <li><a asp-controller="Books" asp-action="Create" style="color:white">Add book</a></li>
